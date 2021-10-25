@@ -17,13 +17,13 @@
 package com.example.android.navigation
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.FragmentTitleBinding
 
 class TitleFragment : Fragment() {
@@ -36,15 +36,22 @@ class TitleFragment : Fragment() {
             val navController: NavController = findNavController()
             navController.navigate(R.id.titleToGameFragment)
         }
-        // TODO (09) Call binding.playButton.setOnClickListener and navigate to the gameFragment
-        // Use Navigation.createNavigateOnClickListener with
-        // R.id.action_titleFragment_to_gameFragment
+        setHasOptionsMenu(true)
         return binding.root
     }
+
     // TODO (06) Add the Title Fragment to the Navigation Graph
     // Go to the navigation.xml file and select the design tab
     // Click the add icon with the + on it to add a new destination to the graph
     // Select fragment_title to add this fragment to the graph as the start destination
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.overflow_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())|| super.onOptionsItemSelected(item)
+    }
 
     // TODO (08) Connect the Title and Game Fragments with an Action
     // In the navigation editor, hover over the titleFragment.  Click on the circular connection
