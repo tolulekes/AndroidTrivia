@@ -18,6 +18,7 @@ package com.example.android.navigation
 
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -37,6 +38,7 @@ class TitleFragment : Fragment() {
             navController.navigate(R.id.titleToGameFragment)
         }
         setHasOptionsMenu(true)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.android_trivia)
         return binding.root
     }
 
@@ -50,7 +52,7 @@ class TitleFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, view!!.findNavController())|| super.onOptionsItemSelected(item)
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())|| super.onOptionsItemSelected(item)
     }
 
     // TODO (08) Connect the Title and Game Fragments with an Action
